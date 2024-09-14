@@ -1,6 +1,6 @@
 import EventCard from "../components/EventCard.jsx";
 
-const Explore = () => {
+const Event = () => {
   return (
     <>
       <section className="bg-gray-50 py-8 antialiased  md:py-12">
@@ -32,4 +32,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default Event;

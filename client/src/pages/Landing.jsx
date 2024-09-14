@@ -37,9 +37,9 @@ const Landing = () => {
           <nav>
             <ul className="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
               <li>
-                <a className="md:p-4 py-3 px-0 block" href="#">
-                  Explore
-                </a>
+                <Link className="md:p-4 py-3 px-0 block" to="/event">
+                  Event
+                </Link>
               </li>
               <li>
                 <Link className="md:p-4 py-3 px-0 block" to="/login">
@@ -74,12 +74,12 @@ const Landing = () => {
             occasion.
           </p>
           <div className="mt-4">
-            <a
-              href="#contact"
+            <Link
+              to={"/event"}
               className="px-5 py-3 text-lg tracking-wider text-white bg-blue-500 rounded-lg md:px-8 hover:bg-blue-600 group"
             >
-              <Link to={'/explore'}>Explore</Link>{" "}
-            </a>
+              Explore Events
+            </Link>
           </div>
         </div>
 

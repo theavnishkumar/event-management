@@ -1,6 +1,32 @@
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 const Signup = () => {
+  const { signup, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await signup(userData.name, userData.email, userData.password);
+      navigate("/event");
+    } catch (error) {
+      console.error("Signup failed:", error);
+    }
+  };
+  useEffect(() => {
+    if (user) {
+      navigate("/event");
+    }
+  }, [user, navigate]);
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -11,7 +37,12 @@ const Signup = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form
+            action="#"
+            method="POST"
+            className="space-y-6"
+            onSubmit={handleSubmit}
+          >
             <div>
               <label
                 htmlFor="name"
@@ -24,6 +55,10 @@ const Signup = () => {
                   id="name"
                   name="name"
                   type="text"
+                  value={userData.name}
+                  onChange={(e) =>
+                    setUserData({ ...userData, name: e.target.value })
+                  }
                   required
                   autoComplete="name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -43,6 +78,10 @@ const Signup = () => {
                   id="email"
                   name="email"
                   type="email"
+                  value={userData.email}
+                  onChange={(e) =>
+                    setUserData({ ...userData, email: e.target.value })
+                  }
                   required
                   autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -64,6 +103,10 @@ const Signup = () => {
                   id="password"
                   name="password"
                   type="password"
+                  value={userData.password}
+                  onChange={(e) =>
+                    setUserData({ ...userData, password: e.target.value })
+                  }
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

@@ -1,11 +1,20 @@
-function App() {
-  return (
-    <>
-      <p className="text-2xl text-gray-700 text-center font-semibold p-4">
-        React js
-      </p>
-    </>
+import { Outlet, Navigate } from "react-router-dom";
+import AuthContext from "./context/AuthContext";
+import { useContext } from "react";
+
+const App = () => {
+  const { user, loading } = useContext(AuthContext);
+  if (loading) {
+    return "Loading...";
+  }
+
+  return user ? (
+    <main className="">
+      <Outlet />
+    </main>
+  ) : (
+    <Navigate to="/login" />
   );
-}
+};
 
 export default App;
