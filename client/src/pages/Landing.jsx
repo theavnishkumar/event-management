@@ -1,12 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdEventAvailable } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
 import { MdEventNote } from "react-icons/md";
 import { SlCalender } from "react-icons/sl";
 import { FaUserCheck } from "react-icons/fa";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const Landing = () => {
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
   return (
     <>
       {/* Header Start*/}
@@ -41,16 +49,33 @@ const Landing = () => {
                   Event
                 </Link>
               </li>
-              <li>
-                <Link className="md:p-4 py-3 px-0 block" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link className="md:p-4 py-3 px-0 block" to="/signup">
-                  Signup
-                </Link>
-              </li>
+              {user ? (
+                <li className="flex justify-center items-center">
+                  <Link className="md:p-4 py-3 px-0 block" to="/dashboard">
+                    Dashboard
+                  </Link>
+                  <span className=" text-grey-900 font-semibold">Hi, {user?.name}</span>
+                  <button
+                className="flex items-center justify-center text-white bg-red-500 rounded-lg px-3 hover:bg-red-600  py-2.5  hover:shadow-lg hover:drop-shadow transition duration-200 mx-4 text-sm"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+                </li>
+              ) : (
+                <>
+                  <li>
+                    <Link className="md:p-4 py-3 px-0 block" to="/login">
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="md:p-4 py-3 px-0 block" to="/signup">
+                      Signup
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
         </div>

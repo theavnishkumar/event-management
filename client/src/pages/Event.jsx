@@ -1,6 +1,22 @@
+import { useEffect, useState } from "react";
 import EventCard from "../components/EventCard.jsx";
+import axios from "axios";
+const VITE_API = `${import.meta.env.VITE_API}`;
 
 const Event = () => {
+
+  const [eventData, setEventData] = useState(null);
+
+  useEffect(() => {
+    axios.get(`${VITE_API}/api/event`)
+      .then((response) => {
+        setEventData(response.data);           
+      })
+      .catch((err) => {
+        console.log(err)   
+      });
+  }, []);
+
   return (
     <>
       <section className="bg-gray-50 py-8 antialiased  md:py-12">
@@ -13,10 +29,11 @@ const Event = () => {
             </div>
           </div>
           <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-            <EventCard />
-            <EventCard />
-            <EventCard />
-            <EventCard />
+
+            {eventData && eventData.map((event) => (
+              <EventCard key={event._id} title={event.eventName} date={event.date} id={event._id} />  
+            ))}
+            
           </div>
           {/* <div className="w-full text-center">
             <button

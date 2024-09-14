@@ -1,6 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
 import AuthContext from "./context/AuthContext";
 import { useContext } from "react";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   const { user, loading } = useContext(AuthContext);
@@ -10,6 +11,7 @@ const App = () => {
 
   return user ? (
     <main className="">
+      <Navbar/>
       <Outlet />
     </main>
   ) : (

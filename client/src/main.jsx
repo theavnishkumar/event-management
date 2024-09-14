@@ -11,6 +11,7 @@ import Event from "./pages/Event.jsx";
 import EventPage from "./pages/EventPage.jsx";
 import { AuthProvider } from "./context/AuthContext";
 import Dashboard from "./pages/Dashboard.jsx";
+import CreateEvent from "./pages/CreateEvent.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,23 +30,28 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/event",
-    element: <Event />,
-    errorElement: <Error />,
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-    errorElement: <Error />,
-  },
-  {
     path: "/",
     element: <App />,
     errorElement: <Error />,
     children: [
       {
+        path: "/event",
+        element: <Event />,
+        errorElement: <Error />,
+      },
+      {
         path: "/event/:id",
         element: <EventPage />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/event/create",
+        element: <CreateEvent />,
         errorElement: <Error />,
       },
     ],
